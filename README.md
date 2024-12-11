@@ -1,6 +1,6 @@
 # Rob Thoughts
 
-A collaboration project with my friend. Will be a constant work in progress.
+A collaboration project with my friend. Will be a constant work in progress, starting small with eyes always on possible next features.
 
 Live project here: https://robthoughts.me
 
