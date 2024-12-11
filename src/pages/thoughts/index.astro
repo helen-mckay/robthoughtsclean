@@ -1,0 +1,41 @@
+---
+import Base from "../../layouts/Base.astro";
+import TopicsList from "../../components/TopicsList.astro";
+import ThoughtsList from "../../components/ThoughtsList.astro";
+
+import { getCollection } from "astro:content";
+
+const thoughts = (await getCollection('thoughts'));
+---
+
+<Base pageTitle="Thoughts">
+    <div class="breadcrumb">
+        <p>thoughts</p>
+    </div>
+        <h1 class="page-title">thoughts</h1>
+    <section>
+        <a href="/thoughts/topics"><h2>topics</h2></a>
+        <h3>top</h3>
+        <TopicsList topOnly/>
+    </section>
+    <section>
+        <h2>all thoughts</h2>
+        <ThoughtsList thoughts={thoughts}/>
+    </section>
+</Base>
+
+<style>
+    @media screen and (min-width: 600px) {
+        .page-title {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 2rem;
+        }
+    }
+</style>

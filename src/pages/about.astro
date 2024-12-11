@@ -1,0 +1,49 @@
+---
+import Base from "../layouts/Base.astro";
+import * as AboutPage from '../content/about/About.md';
+import * as Brand from '../content/brand/Brand.md';
+
+const { Content } = AboutPage;
+---
+
+<Base pageTitle="About">
+    <div id="avatar-container">
+        <img src={Brand.frontmatter.avatar}/>
+    </div>
+    <h1 class="page-title">{AboutPage.frontmatter.title}</h1>
+    <div id="about-content">
+        <Content/>
+    </div>
+</Base>
+
+<style>
+    #avatar-container {
+        width: 8rem;
+        height: 8rem;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    #avatar-container img {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+    }
+
+    @media screen and (min-width: 600px)
+    {
+        #avatar-container {
+            width: 10rem;
+            height: 10rem;
+        }
+
+        #avatar-container img {
+            width: 10rem;
+            height: 10rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+        }
+    }
+</style>

@@ -1,0 +1,145 @@
+---
+import Home from "../layouts/Home.astro";
+import { getCollection } from "astro:content";
+import * as Brand from '../content/brand/Brand.md';
+
+const thoughts = (await getCollection('thoughts'));
+let randomThought = null;
+let randomTopic = null;
+let sortedAllThoughts = null;
+let recentThoughts = null;
+
+if (thoughts) {
+	randomThought = thoughts[Math.floor(Math.random() * thoughts.length)];
+	sortedAllThoughts = thoughts.sort((a: any, b: any) => Date.parse(b.data.datePosted) - Date.parse(a.data.datePosted));
+	recentThoughts = sortedAllThoughts;
+
+	if (recentThoughts.length > 5)
+	{
+		recentThoughts.splice(5, recentThoughts.length - 5);
+	}
+
+	const topicsDict: Record<string, number> = {};
+
+	for (var i = 0; i < thoughts.length; i++)
+	{
+		for (var j = 0; j < thoughts![i].data!.topics!.length; j++)
+		{
+			if (!topicsDict[thoughts![i].data!.topics![j]])
+			{
+				topicsDict[thoughts![i].data!.topics![j]] = 1;
+			}
+			else
+			{
+				topicsDict[thoughts![i].data!.topics![j]]++;
+			}
+		}
+	}
+
+	var topicsArray = Object.entries(topicsDict);
+
+	randomTopic = topicsArray[Math.floor(Math.random() * topicsArray.length)];
+}
+
+---
+<Home pageTitle="Home">
+	<section id="info-section">
+		<h1 class="page-title">Rob <a href="/thoughts">Thoughts</a></h1>
+		<h2>{Brand.frontmatter.title}</h2>
+		<div class="section-content">
+			<p>{Brand.frontmatter.intro}</p>
+		</div>
+	</section>
+	<section id="cta-group">
+		{randomThought && <a href={`/thoughts/${randomThought.slug}`}><div class="cta-link">Random Thought</div></a>}
+		<a href="/about"><div class="cta-link">About Rob</div></a>
+		{randomTopic && <a href={`/thoughts/topics/${randomTopic[0]}`}><div class="cta-link">Random Topic</div></a>}
+	</section>
+</Home>
+
+<style>
+	#info-section > h1 {
+		font-size: 2rem;
+		text-align: center;
+	}
+
+	#info-section > h1 > a {
+		color: var(--accent-color);
+		transition: filter 0.3s ease;
+	}
+
+	#info-section > h1 > a:hover {
+		filter: brightness(120%);
+	}
+
+	#info-section > h2 {
+		text-align: center;
+		font-size: 1.5rem;
+	}
+
+	.section-content p {
+		margin: 0;
+		text-align: center;
+	}
+
+	#cta-group {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.cta-link {
+		background-color: var(--accent-color);
+		padding: 0.8rem;
+		color: white;
+		text-transform: lowercase;
+		box-shadow: 2px 2px var(--text-color);
+		transition: filter 0.3s ease;
+		border-radius: 0.5rem;
+		font-size: 0.8rem;
+	}
+
+	.cta-link:hover {
+		filter: brightness(120%);
+	}
+
+	@media screen and (min-width: 600px)
+	{
+		#info-section > h1 {
+			font-size: 4rem;
+			text-shadow: 2px 2px var(--accent-color);
+		}
+
+		#info-section > h1 > a {
+			text-shadow: 2px 2px var(--text-color);
+		}
+
+		#info-section > h2 {
+			font-size: 2.5rem;
+		}
+
+		#cta-group {
+			flex-direction: row;
+		}
+
+		.cta-link {
+			font-size: 1rem;
+			padding: 1rem;
+		}
+	}
+
+	@media screen and (min-width: 900px)
+	{
+		#info-section > h1 {
+			font-size: 6rem;
+		}
+
+		.cta-link {
+			font-size: 1.5rem;
+			padding: 1.5rem;
+		}
+	}
+</style>

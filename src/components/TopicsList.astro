@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+
+const { topOnly, hideCount, postView } = Astro.props;
+
+const thoughts = (await getCollection('thoughts'));
+const topicsDict: Record<string, number> = {};
+
+const {topics} = Astro.props;
+
+// FIXME: build the topicsDict, accounting that thoughts.data.topics might be undefined
+
+
+for (var i = 0; i < thoughts.length; i++)
+{
+    for (var j = 0; j < thoughts![i].data!.topics!.length; j++)
+    {
+        if (!topicsDict[thoughts![i].data!.topics![j]])
+        {
+            topicsDict[thoughts![i].data!.topics![j]] = 1;
+        }
+        else
+        {
+            topicsDict[thoughts![i].data!.topics![j]]++;
+        }
+    }
+}
+
+var sortableArray = Object.entries(topicsDict);
+var sortedArray = sortableArray.sort(([, a], [, b]) => b - a);
+
+if (topOnly === true)
+{
+    if (sortedArray.length > 5)
+    {
+        sortedArray.splice(5, sortedArray.length - 5);
+    }
+}
+
+var sortedTopicsDict = Object.fromEntries(sortedArray);
+
+---
+
+<div class="topics-list" id={postView ? "post-view" : ""}>
+    {!postView && Object.entries(sortedTopicsDict).map(([key, val]) => <div class="topics-list-item"><p>{!hideCount ? <>({val})</>: "" }</p><a href={`/thoughts/topics/${key}`}>{key}</a></div>)}
+    {postView && topics.map((topic: any) => <div class="topics-list-item"><a href={`/thoughts/topics/${topic}`}>{topic}</a></div>)}
+</div>
+
+<style>
+    .topics-list p {
+        color: var(--text-light-color);
+        margin-bottom: 0;
+    }
+
+    .topics-list-item {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1rem;
+        justify-content: start;
+    }
+
+    #post-view {
+        display: flex;
+        gap: 1rem;
+        margin: 0.5rem 0;
+        flex-wrap: wrap;
+    }
+
+    #post-view .topics-list-item {
+        display: block;
+    }
+
+    @media screen and (min-width: 600px)
+    {
+        .topics-list-item {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 1rem;
+            justify-content: start;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .topics-list-item p, .topics-list-item a {
+            font-size: 1.25rem;
+        }
+    }
+</style>

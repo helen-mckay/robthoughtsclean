@@ -1,0 +1,62 @@
+---
+import Base from '../../../layouts/Base.astro';
+
+export const prerender = true
+
+export async function getStaticPaths() {
+  const allThoughts: any = await Astro.glob('../../../content/thoughts/*.md');
+  const uniqueTopics = [...new Set(allThoughts.map((thought: any) => thought.frontmatter.topics).flat())];
+
+  return uniqueTopics.map((topic) => {
+    const filteredThoughts = allThoughts.filter((thought: any) => thought.frontmatter.topics.includes(topic));
+    return {
+        params: {topic},
+        props: {thoughts: filteredThoughts}
+    };
+});
+}
+
+const { topic } = Astro.params;
+const { thoughts } = Astro.props;
+
+const sortedThoughts = thoughts.sort((a: any, b: any) => Date.parse(b.frontmatter.datePosted) - Date.parse(a.frontmatter.datePosted));
+---
+
+<Base pageTitle={topic}>
+    <div class="breadcrumb">
+        <p><a href="/thoughts">thoughts</a> / <a href="/thoughts/topics">topics</a> / {topic}</p>
+    </div>
+    <h1 class="page-title"><span>{thoughts.length == 1 ? thoughts.length + " thought" : thoughts.length + " thoughts"} on topic:</span> {topic}</h1>
+    <div class="thoughts-list">
+        {
+            sortedThoughts.map((t: any) => <div class="thoughts-list-item"><p>{new Date(t.frontmatter.datePosted).toLocaleString('default', {month: 'short', year: 'numeric', day: '2-digit'})}</p> <a href={`/thoughts/${t.frontmatter.slug}`}>{t.frontmatter.title}</a></div>)
+        }
+    </div>
+</Base>
+
+<style>
+    .thoughts-list-item {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1rem;
+        justify-content: start;
+        margin: 1rem 0;
+    }
+
+    .thoughts-list-item p {
+        color: var(--text-light-color);
+        margin: 0;
+    }
+
+    span {
+        color: var(--text-light-color);
+        font-weight: normal;
+    }
+
+    @media screen and (min-width: 600px)
+    {
+        .thoughts-list-item a, .thoughts-list-item p {
+            font-size: 1.25rem;
+        }
+    }
+</style>

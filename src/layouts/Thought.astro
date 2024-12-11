@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import TopicsList from '../components/TopicsList.astro';
+
+type Props = CollectionEntry<'thoughts'>['data'];
+
+const {title, datePosted, summary, image, topics} = Astro.props;
+---
+
+<Base pageTitle={title}>
+    <div class="breadcrumb">
+        <p><a href="/thoughts">thoughts</a> / {title}</p>
+    </div>
+    {image && <div class="thought-image-container">
+        <img src={image}/>
+    </div>}
+    <h1 class="page-title">{title}</h1>
+    <p id="post-date">{new Date(datePosted).toLocaleString('default', {month: "short", day: "2-digit", year: "numeric"})}</p>
+    <p>{summary}</p>
+    <TopicsList topics={topics} hideCount postView/>
+    <hr/>
+    <slot/>
+</Base>
+
+<style>
+    /* placeholder values for now */
+    .thought-image-container {
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    .thought-image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    #post-date {
+        font-size: 0.8rem;
+        color: var(--text-light-color);
+    }
+
+    p {
+        color: var(--text-light-color);
+    }
+
+    hr {
+        width: 10rem;
+        margin: 1rem auto;
+    }
+
+    #post-body {
+        margin: 1rem;
+    }
+
+    @media screen and (min-width: 600px)
+    {
+        .thought-image-container {
+            width: 400px;
+        }
+    }
+</style>

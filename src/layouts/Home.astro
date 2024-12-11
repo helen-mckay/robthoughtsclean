@@ -1,0 +1,61 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE } from '../consts';
+import * as Brand from '../content/brand/Brand.md';
+import '../styles/global.css';
+
+const { pageTitle } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+        <title>{SITE_TITLE} | {pageTitle}</title>
+        <meta name="description" content={Brand.frontmatter.description}/>
+    </head>
+    <body>
+        <div class="wrapper">
+            <main>
+                <slot/>
+            </main>
+            <Footer/>
+        </div>
+    </body>
+</html>
+
+<style>
+    .wrapper {
+        max-width: 900px;
+        margin: 0 1rem;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    @media screen and (min-width: 600px)
+    {
+        .wrapper {
+            margin: 0 2rem;
+        }
+
+        header {
+            margin: 5rem 0;
+        }
+    }
+
+    @media screen and (min-width: 950px)
+    {
+        .wrapper {
+            margin: 0 auto;
+        }
+    }
+</style>

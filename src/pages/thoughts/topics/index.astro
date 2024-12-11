@@ -1,0 +1,28 @@
+---
+import Base from '../../../layouts/Base.astro';
+import TopicsList from '../../../components/TopicsList.astro';
+---
+
+<Base pageTitle="Topics">
+    <div class="breadcrumb">
+        <p><a href="/thoughts">thoughts</a> / topics</p>
+    </div>
+    <h1 class="page-title">topics</h1>
+    <TopicsList/>
+</Base>
+
+<style>
+    @media screen and (min-width: 600px) {
+        .page-title {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 2rem;
+        }
+    }
+</style>

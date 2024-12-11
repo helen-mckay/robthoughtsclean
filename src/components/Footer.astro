@@ -1,0 +1,28 @@
+---
+import { SITE_OWNER, SITE_START_YEAR } from "../consts";
+
+let thisYear = new Date().getFullYear();
+---
+
+<footer>
+    <p>&copy; {SITE_START_YEAR} {thisYear > SITE_START_YEAR ? `–${thisYear}` : ""} {SITE_OWNER}. All Rights Reserved.</p>
+    <p>Made with &heartsuit; by <a target="_blank" rel="noopener noreferrer" href="https://helenmckay.dev">Helen McKay</a>.</p>
+</footer>
+
+<style>
+    footer {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid var(--text-light-color);
+    }
+
+    footer p {
+        font-size: 0.75rem;
+        color: var(--text-light-color);
+        text-align: center;
+    }
+</style>
