@@ -10,7 +10,7 @@ This repo has placeholder content. To see the live project, visit https://robtho
 
 A blog site with an emphasis on randomness, surprise, and discovering unusual connections between seemingly unrelated ideas. 
 
-Landing on the home page, the user is invited to view a random Thought (blog post) or a random Topic (post tag), allowing the user jump dive straight into the web of Rob's thoughts.
+Landing on the home page, the user is invited to view a random Thought (blog post) or a random Topic (post tag), allowing the user dive straight into the web of Rob's thoughts.
 
 ## How it was made
 
