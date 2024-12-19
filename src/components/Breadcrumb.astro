@@ -1,0 +1,13 @@
+---
+const {thoughtsLevel, topicsLevel, oneThoughtLevel, oneTopicLevel, title} = Astro.props;
+
+// not the most elegant but it works for now
+
+---
+
+<div class="text-stone-600 text-sm md:text-base lg:text-l my-0">
+    { oneThoughtLevel && <p class="my-2"><a class="underline text-lime-800 hover:text-lime-600 transition-all" href="/thoughts">Thoughts</a> / {title}</p> }
+    { oneTopicLevel && <p class="my-2"><a class="underline text-lime-800 hover:text-lime:600 transition-all" href="/thoughts">Thoughts</a> / <a class="underline text-lime-800 hover:text-lime:600 transition-all" href="/thoughts/topics">Topics</a> / {title} </p>}
+    { topicsLevel && <p class="my-2"><a class="underline text-lime-800 hover:text-lime-600 transition-all" href="/thoughts">Thoughts</a> / Topics</p> }
+    { thoughtsLevel && <p class="my-2">Thoughts</p>}
+</div>
