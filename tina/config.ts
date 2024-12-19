@@ -22,7 +22,7 @@ export default defineConfig({
   media: {
     tina: {
       mediaRoot: "",
-      publicFolder: "public",
+      publicFolder: "media",
     },
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
@@ -46,7 +46,7 @@ export default defineConfig({
             label: "Body",
             isBody: true,
             required: true,
-            toolbarOverride: ["heading", "bold", "italic", "quote", "ol", "ul", "link"]
+            toolbarOverride: ["heading", "bold", "italic", "quote", "ol", "ul", "image", "link"]
           }
         ],
         ui: {
@@ -149,7 +149,7 @@ export default defineConfig({
             label: "Body",
             isBody: true,
             required: true,
-            toolbarOverride: ["heading", "bold", "italic", "quote", "ol", "ul", "link"]
+            toolbarOverride: ["heading", "bold", "italic", "quote", "ol", "ul", "image", "link"]
           }
         ]
       },

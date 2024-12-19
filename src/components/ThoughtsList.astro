@@ -6,34 +6,8 @@ thoughts.sort((a: any, b: any) => Date.parse(b.data.datePosted) - Date.parse(a.d
 // assumes it arrives unsorted
 ---
 
-<div class="thoughts-list">
+<div>
     {
-        thoughts.map((t: any) => <div class="thoughts-list-item"><p>{new Date(t.data.datePosted).toLocaleString('default', {month: 'short', year: 'numeric', day: '2-digit'})}</p> <a class="thoughts-list-item" href={`/thoughts/${t.slug}`}>{t.data.title}</a></div>)
+        thoughts.map((t: any) => <div class="flex flex-row gap-3 font-mono md:text-lg l:text-xl"><p class="text-stone-600">{new Date(t.data.datePosted).toLocaleString('default', {month: 'short', year: 'numeric', day: '2-digit'})}</p> <a class="underline text-lime-800 hover:text-lime-600 transition-all" href={`/thoughts/${t.slug}`}>{t.data.title}</a></div>)
     }
 </div>
-
-<style>
-    .thoughts-list-item {
-        margin-bottom: 1rem;
-    }
-
-    .thoughts-list-item p {
-        color: var(--text-light-color);
-        margin: 0;
-    }
-
-    @media screen and (min-width: 600px)
-    {
-        .thoughts-list-item {
-            display: grid;
-            grid-template-columns: auto auto;
-            gap: 1rem;
-            justify-content: start;
-            margin-bottom: 0;
-        }
-
-        .thoughts-list-item p, .thoughts-list-item a {
-            font-size: 1.25rem;
-        }
-    }
-</style>

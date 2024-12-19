@@ -1,5 +1,6 @@
 ---
 import Home from "../layouts/Home.astro";
+import CTA from "../components/CTA.astro";
 import { getCollection } from "astro:content";
 import * as Brand from '../content/brand/Brand.md';
 
@@ -43,103 +44,14 @@ if (thoughts) {
 
 ---
 <Home pageTitle="Home">
-	<section id="info-section">
-		<h1 class="page-title">Rob <a href="/thoughts">Thoughts</a></h1>
-		<h2>{Brand.frontmatter.title}</h2>
-		<div class="section-content">
-			<p>{Brand.frontmatter.intro}</p>
-		</div>
+	<section>
+		<h1 class="text-3xl font-bold text-stone-800 uppercase md:text-6xl l:text-8xl">Rob <a class="underline text-lime-800 hover:text-lime-600 transition-all" href="/thoughts">Thoughts</a></h1>
+		<h2 class="text-3xl md:text-5xl l:text-7xl text-stone-600">{Brand.frontmatter.title}</h2>
+		<p class="px-1 py-1 text-xs md:py-3 md:text-base l:text-lg text-stone-800">{Brand.frontmatter.intro}</p>
 	</section>
-	<section id="cta-group">
-		{randomThought && <a href={`/thoughts/${randomThought.slug}`}><div class="cta-link">Random Thought</div></a>}
-		<a href="/about"><div class="cta-link">About Rob</div></a>
-		{randomTopic && <a href={`/thoughts/topics/${randomTopic[0]}`}><div class="cta-link">Random Topic</div></a>}
+	<section class="flex gap-2 l:gap-3 flex-col l:flex-row">
+		{randomThought && <CTA link={`/thoughts/${randomThought.slug}`} title="Random Thought"/>}
+		<CTA link="/about" title="About Rob"/>
+		{randomTopic && <CTA link={`/thoughts/topics/${randomTopic[0]}`} title="Random Topic"/>}
 	</section>
 </Home>
-
-<style>
-	#info-section > h1 {
-		font-size: 2rem;
-		text-align: center;
-	}
-
-	#info-section > h1 > a {
-		color: var(--accent-color);
-		transition: filter 0.3s ease;
-	}
-
-	#info-section > h1 > a:hover {
-		filter: brightness(120%);
-	}
-
-	#info-section > h2 {
-		text-align: center;
-		font-size: 1.5rem;
-	}
-
-	.section-content p {
-		margin: 0;
-		text-align: center;
-	}
-
-	#cta-group {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
-
-	.cta-link {
-		background-color: var(--accent-color);
-		padding: 0.8rem;
-		color: white;
-		text-transform: lowercase;
-		box-shadow: 2px 2px var(--text-color);
-		transition: filter 0.3s ease;
-		border-radius: 0.5rem;
-		font-size: 0.8rem;
-	}
-
-	.cta-link:hover {
-		filter: brightness(120%);
-	}
-
-	@media screen and (min-width: 600px)
-	{
-		#info-section > h1 {
-			font-size: 4rem;
-			text-shadow: 2px 2px var(--accent-color);
-		}
-
-		#info-section > h1 > a {
-			text-shadow: 2px 2px var(--text-color);
-		}
-
-		#info-section > h2 {
-			font-size: 2.5rem;
-		}
-
-		#cta-group {
-			flex-direction: row;
-		}
-
-		.cta-link {
-			font-size: 1rem;
-			padding: 1rem;
-		}
-	}
-
-	@media screen and (min-width: 900px)
-	{
-		#info-section > h1 {
-			font-size: 6rem;
-		}
-
-		.cta-link {
-			font-size: 1.5rem;
-			padding: 1.5rem;
-		}
-	}
-</style>

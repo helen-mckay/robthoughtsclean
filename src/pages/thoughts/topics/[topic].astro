@@ -1,4 +1,5 @@
 ---
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import Base from '../../../layouts/Base.astro';
 
 export const prerender = true
@@ -23,40 +24,11 @@ const sortedThoughts = thoughts.sort((a: any, b: any) => Date.parse(b.frontmatte
 ---
 
 <Base pageTitle={topic}>
-    <div class="breadcrumb">
-        <p><a href="/thoughts">thoughts</a> / <a href="/thoughts/topics">topics</a> / {topic}</p>
-    </div>
-    <h1 class="page-title"><span>{thoughts.length == 1 ? thoughts.length + " thought" : thoughts.length + " thoughts"} on topic:</span> {topic}</h1>
-    <div class="thoughts-list">
+    <Breadcrumb oneTopicLevel title={topic}/>
+    <h1 class="text-stone-800 font-bold my-3 l:my-5 text-center text-2xl md:text-3xl l:text-4xl"><span class="font-normal text-stone-600">{thoughts.length == 1 ? thoughts.length + " thought" : thoughts.length + " thoughts"} on topic:</span> {topic}</h1>
+    <div>
         {
-            sortedThoughts.map((t: any) => <div class="thoughts-list-item"><p>{new Date(t.frontmatter.datePosted).toLocaleString('default', {month: 'short', year: 'numeric', day: '2-digit'})}</p> <a href={`/thoughts/${t.frontmatter.slug}`}>{t.frontmatter.title}</a></div>)
+            sortedThoughts.map((t: any) => <div class="text-stone-600 flex flex-row gap-3 font-mono md:text-lg l:text-xl"><p>{new Date(t.frontmatter.datePosted).toLocaleString('default', {month: 'short', year: 'numeric', day: '2-digit'})}</p> <a class="underline text-lime-800 hover:text-lime-600 transition-all" href={`/thoughts/${t.frontmatter.slug}`}>{t.frontmatter.title}</a></div>)
         }
     </div>
 </Base>
-
-<style>
-    .thoughts-list-item {
-        display: grid;
-        grid-template-columns: auto auto;
-        gap: 1rem;
-        justify-content: start;
-        margin: 1rem 0;
-    }
-
-    .thoughts-list-item p {
-        color: var(--text-light-color);
-        margin: 0;
-    }
-
-    span {
-        color: var(--text-light-color);
-        font-weight: normal;
-    }
-
-    @media screen and (min-width: 600px)
-    {
-        .thoughts-list-item a, .thoughts-list-item p {
-            font-size: 1.25rem;
-        }
-    }
-</style>

@@ -3,7 +3,9 @@ import Base from "../layouts/Base.astro";
 ---
 
 <Base pageTitle="404">
-    <h1>404</h1>
-    <p>Page not found.</p>
-    <a href="/">Return to home page.</a>
+    <h1 class="font-bold my-3 l:my-5 text-center text-2xl md:text-3xl l:text-4xl">404</h1>
+    <div class="flex flex-col place-content-center place-items-center">
+        <p class="text-center md:text-xl my-2">Page not found.</p>
+        <a class="text-lime-800 hover:text-lime-600 underline md:text-xl" href="/">Return to home page.</a>
+    </div>
 </Base>

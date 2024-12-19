@@ -2,15 +2,8 @@
 import NavLink from "./NavLink.astro";
 ---
 
-<nav>
-    <NavLink class="nav-link" href="/">Home</NavLink>
-    <NavLink class="nav-link" href="/about">About</NavLink>
-    <NavLink class="nav-link" href="/thoughts">Thoughts</NavLink>
+<nav class="flex flex-row gap-3">
+    <NavLink class="text-lime-800 uppercase hover:text-lime-600 hover:underline transition-all md:text-lg l:text-xl" href="/">Home</NavLink>
+    <NavLink class="text-lime-800 uppercase hover:text-lime-600 hover:underline transition-all md:text-lg l:text-xl" href="/about">About</NavLink>
+    <NavLink class="text-lime-800 uppercase hover:text-lime-600 hover:underline transition-all md:text-lg l:text-xl" href="/thoughts">Thoughts</NavLink>
 </nav>
-
-<style>
-    nav {
-        display: flex;
-        gap: 1rem;
-    }
-</style>

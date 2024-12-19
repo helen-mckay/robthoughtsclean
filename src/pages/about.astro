@@ -1,49 +1,17 @@
 ---
-import Base from "../layouts/Base.astro";
+import BaseWithMarkdown from "../layouts/BaseWithMarkdown.astro";
 import * as AboutPage from '../content/about/About.md';
 import * as Brand from '../content/brand/Brand.md';
 
 const { Content } = AboutPage;
 ---
 
-<Base pageTitle="About">
-    <div id="avatar-container">
-        <img src={Brand.frontmatter.avatar}/>
+<BaseWithMarkdown pageTitle="About">
+    <div class="flex place-content-center">
+        <img class="max-w-[290px] mx-auto my-3 border-4 border-lime-800" src={Brand.frontmatter.avatar}/>
     </div>
-    <h1 class="page-title">{AboutPage.frontmatter.title}</h1>
-    <div id="about-content">
+    <div class="max-w-screen-l">
+        <h1 class="text-center text-xl md:text-2xl l:text-3xl">{AboutPage.frontmatter.title}</h1>
         <Content/>
     </div>
-</Base>
-
-<style>
-    #avatar-container {
-        width: 8rem;
-        height: 8rem;
-        overflow: hidden;
-        margin: 0 auto;
-    }
-
-    #avatar-container img {
-        width: 8rem;
-        height: 8rem;
-        border-radius: 50%;
-    }
-
-    @media screen and (min-width: 600px)
-    {
-        #avatar-container {
-            width: 10rem;
-            height: 10rem;
-        }
-
-        #avatar-container img {
-            width: 10rem;
-            height: 10rem;
-        }
-
-        .page-title {
-            font-size: 3rem;
-        }
-    }
-</style>
+</BaseWithMarkdown>

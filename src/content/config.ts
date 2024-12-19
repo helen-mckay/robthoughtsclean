@@ -13,4 +13,22 @@ const thoughts = defineCollection({
 	}),
 });
 
-export const collections = { thoughts };
+const about = defineCollection({
+	type: 'content',
+	schema: z.object({
+		title: z.string(),
+		body: z.string().optional()
+	})
+});
+
+const brand = defineCollection({
+	type: 'content',
+	schema: z.object({
+		title: z.string(),
+		intro: z.string(),
+		avatar: z.string(),
+		description: z.string()
+	})
+})
+
+export const collections = { thoughts, about, brand };
